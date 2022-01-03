@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import './App.css';
+import './components/movie-list';
+import MovieList from './components/movie-list';
 
 function App() {
   const [movies, setMovie] = useState([]);
@@ -23,10 +25,9 @@ function App() {
         <h1>Movie Rater</h1>
       </header>
       <div className="layout">
-          <div>
-            { movies.map( movie => { return <h2>{movie.title}</h2>} )}</div>
-          <div>Movie Details</div>
-        </div>
+        <MovieList movies={movies}/>
+        <div>Movie Details</div>
+      </div>
     </div>
   );
 }
