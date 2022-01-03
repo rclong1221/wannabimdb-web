@@ -3,9 +3,16 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './components/movie-list';
 import MovieList from './components/movie-list';
+import MovieDetails from './components/movie-details';
 
 function App() {
   const [movies, setMovie] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const movieClickedHandler = movie => {
+    setSelectedMovie(movie);
+    console.log(movie);
+  }
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
@@ -25,8 +32,8 @@ function App() {
         <h1>Movie Rater</h1>
       </header>
       <div className="layout">
-        <MovieList movies={movies}/>
-        <div>Movie Details</div>
+        <MovieList movies={movies} movieClickedHandler={movieClickedHandler}/>
+        <MovieDetails movie={selectedMovie}/>
       </div>
     </div>
   );

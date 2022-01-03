@@ -1,9 +1,19 @@
 import React from 'react';
 
 function MovieList(props) {
+    const movieClicked = movie => e => {
+        props.movieClickedHandler(movie);
+    }
+
     return (
         <div>
-            { props.movies && props.movies.map( movie => { return <h2>{movie.title}</h2>} )}
+            { props.movies && props.movies.map( movie => { 
+                return (
+                    <div key={movie.id}>
+                        <h2 onClick={movieClicked(movie)}>{movie.title}</h2>
+                    </div>
+                )
+            })}
         </div>    
     )
 }
