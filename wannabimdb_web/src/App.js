@@ -10,7 +10,7 @@ function App() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Token ',
+        'Authorization': 'Token a8102ac3e946eaeb86246edbcefb97b285139561',
       }
     }).then( response => response.json() )
     .then( response => setMovie(response) )
@@ -24,7 +24,7 @@ function App() {
       </header>
       <div className="layout">
           <div>
-            { movies.map( movie => { return <h2>{movie}</h2>} )}</div>
+            { movies.map( movie => { return <h2>{movie.title}</h2>} )}</div>
           <div>Movie Details</div>
         </div>
     </div>
