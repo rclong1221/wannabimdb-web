@@ -17,6 +17,14 @@ function App() {
     setSelectedMovie(movie);
   }
 
+  const editClickedHandler = movie => {
+    console.log(`edit ${movie.title}`)
+  }
+
+  const deleteClickedHandler = movie => {
+    console.log(`delete ${movie.title}`)
+  }
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
       method: 'GET',
@@ -35,7 +43,7 @@ function App() {
         <h1>Movie Rater</h1>
       </header>
       <div className="layout">
-        <MovieList movies={movies} movieClickedHandler={movieClickedHandler}/>
+        <MovieList movies={movies} movieClickedHandler={movieClickedHandler} editClickedHandler={editClickedHandler} deleteClickedHandler={deleteClickedHandler} />
         <MovieDetails movie={selectedMovie} updateMovie={updateMovie} />
       </div>
     </div>
