@@ -4,25 +4,25 @@ import './App.css';
 import './components/movie-list';
 import MovieList from './components/movie-list';
 import MovieDetails from './components/movie-details';
+import MovieForm from './components/movie-form';
 
 function App() {
   const [movies, setMovie] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [editedMovie, setEditedMovie] = useState(null);
 
   const movieClickedHandler = movie => {
     setSelectedMovie(movie);
-  }
-
-  const updateMovie = movie => {
-    setSelectedMovie(movie);
+    setEditedMovie(null);
   }
 
   const editClickedHandler = movie => {
-    console.log(`edit ${movie.title}`)
+    setEditedMovie(movie);
+    setSelectedMovie(null);
   }
 
   const deleteClickedHandler = movie => {
-    console.log(`delete ${movie.title}`)
+    console.log(`delete ${movie.title}`);
   }
 
   useEffect(() => {
@@ -44,7 +44,8 @@ function App() {
       </header>
       <div className="layout">
         <MovieList movies={movies} movieClickedHandler={movieClickedHandler} editClickedHandler={editClickedHandler} deleteClickedHandler={deleteClickedHandler} />
-        <MovieDetails movie={selectedMovie} updateMovie={updateMovie} />
+        <MovieDetails movie={selectedMovie} updateMovie={movieClickedHandler} />
+        <MovieForm movie={editedMovie} />
       </div>
     </div>
   );

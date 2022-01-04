@@ -2,6 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import './movie-list.css';
+
 function MovieList(props) {
     const movieClicked = movie => e => {
         props.movieClickedHandler(movie);
@@ -19,7 +21,7 @@ function MovieList(props) {
         <div>
             { props.movies && props.movies.map( movie => { 
                 return (
-                    <div key={movie.id}>
+                    <div className={'movie-item'} key={movie.id}>
                         <h2 onClick={movieClicked(movie)}>{movie.title}</h2>
                         <FontAwesomeIcon icon={faEdit} className={''} onClick={editClickedHandler(movie)} />
                         <FontAwesomeIcon icon={faTrash} className={''} onClick={deleteClickedHandler(movie)} />
