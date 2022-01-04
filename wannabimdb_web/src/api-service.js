@@ -1,21 +1,31 @@
 export class API {
-    static updateMovie(movie, body, token) {
-        return fetch(`http://127.0.0.1:8000/api/movies/${movie}/`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`,
-            },
-            body: JSON.stringify(body),
-        }).then( response => response.json() )
-    }
-
     static createMovie(body, token) {
         return fetch(`http://127.0.0.1:8000/api/movies/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`,
+                'Authorization': `Token ${token['TokenContext']}`,
+            },
+            body: JSON.stringify(body),
+        }).then( response => response.json() )
+    }
+
+    static readMovies(token) {
+        return fetch("http://127.0.0.1:8000/api/movies/", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${token['TokenContext']}`,
+            }
+        }).then( response => response.json() )
+    }
+
+    static updateMovie(movie, body, token) {
+        return fetch(`http://127.0.0.1:8000/api/movies/${movie}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token['TokenContext']}`,
             },
             body: JSON.stringify(body),
         }).then( response => response.json() )
@@ -26,7 +36,7 @@ export class API {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`,
+                'Authorization': `Token ${token['TokenContext']}`,
             },
             body: JSON.stringify(body),
         })

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './App.css';
 import './components/movie-list';
+import { API } from './api-service';
 import MovieList from './components/movie-list';
 import MovieDetails from './components/movie-details';
 import MovieForm from './components/movie-form';
@@ -54,13 +55,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/movies/", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${token['TokenContext']}`,
-      }
-    }).then( response => response.json() )
+    API.readMovies()
     .then( response => setMovies(response) )
     .catch( error => console.log(error) )
   }, []);
