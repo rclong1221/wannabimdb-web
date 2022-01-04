@@ -22,7 +22,8 @@ function App() {
   }
 
   const deleteClickedHandler = movie => {
-    console.log(`delete ${movie.title}`);
+    const newMovies = movies.filter( mov => movie.id !== mov.id );
+    setMovies(newMovies);
   }
 
   const updateMovie = movie => {
