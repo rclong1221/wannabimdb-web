@@ -5,7 +5,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import './movie-details.css';
 
 function MovieDetails(props) {
-    const mov = mov;
+    const mov = props.movie;
 
     return (
         <div>
