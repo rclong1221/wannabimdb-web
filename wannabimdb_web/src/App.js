@@ -7,7 +7,7 @@ import MovieDetails from './components/movie-details';
 import MovieForm from './components/movie-form';
 
 function App() {
-  const [movies, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
 
@@ -25,6 +25,14 @@ function App() {
     console.log(`delete ${movie.title}`);
   }
 
+  const updateMovie = movie => {
+    const newMovies = movies.map( mov => {
+      if (mov.id === movie.id) return movie;
+      return mov;
+    })
+    setMovies(newMovies);
+  }
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
       method: 'GET',
@@ -33,7 +41,7 @@ function App() {
         'Authorization': 'Token a8102ac3e946eaeb86246edbcefb97b285139561',
       }
     }).then( response => response.json() )
-    .then( response => setMovie(response) )
+    .then( response => setMovies(response) )
     .catch( error => console.log(error) )
   }, []);
 
@@ -45,7 +53,7 @@ function App() {
       <div className="layout">
         <MovieList movies={movies} movieClickedHandler={movieClickedHandler} editClickedHandler={editClickedHandler} deleteClickedHandler={deleteClickedHandler} />
         <MovieDetails movie={selectedMovie} updateMovie={movieClickedHandler} />
-        { editedMovie ? <MovieForm movie={editedMovie} /> : null }
+        { editedMovie ? <MovieForm movie={editedMovie} updateMovie={updateMovie} /> : null }
       </div>
     </div>
   );

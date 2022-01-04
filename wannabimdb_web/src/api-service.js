@@ -9,6 +9,6 @@ export class API {
                 'Authorization': `Token ${TOKEN}`,
             },
             body: JSON.stringify(body),
-        })
+        }).then( response => response.json() )
     }
 }
