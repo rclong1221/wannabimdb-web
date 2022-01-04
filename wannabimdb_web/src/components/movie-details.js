@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 import './movie-details.css';
 
 function MovieDetails(props) {
+    const [highlighted, setHighlighted] = useState(-1);
+
     const mov = props.movie;
 
+    const highlightRate = high => e => {
+        setHighlighted(high);
+    }
+
+    const onRateClickedHandler = i => e => {
+        fetch(`http://127.0.0.1:8000/api/movies/${mov.id}/rate_movie/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Token a8102ac3e946eaeb86246edbcefb97b285139561',
+            },
+            body: JSON.stringify( {stars: i + 1} )
+          }).then( response => response.json() )
+          .then( response => {
+              getDetails() 
+          })
+          .catch( error => console.log(error) )
+    }
+
+    const getDetails = () => {
+        fetch(`http://127.0.0.1:8000/api/movies/${mov.id}/`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Token a8102ac3e946eaeb86246edbcefb97b285139561',
+            },
+          }).then( response => response.json() )
+          .then( response => props.updateMovie(response) )
+          .catch( error => console.log(error) )
+    }
+
     return (
-        <div>
+        <React.Fragment>
             { mov ? (
                 <div>
                     <h1>{mov && mov.title}</h1>
@@ -18,9 +51,18 @@ function MovieDetails(props) {
                     <FontAwesomeIcon icon={faStar} className={mov.avg_rating > 2 ? 'orange':''} />
                     <FontAwesomeIcon icon={faStar} className={mov.avg_rating > 3 ? 'orange':''} />
                     <FontAwesomeIcon icon={faStar} className={mov.avg_rating > 4 ? 'orange':''} />({mov.total_ratings})
+                    <div className="rate-container">
+                        <h2>Rate it</h2>
+                        { [...Array(5)].map( (e, i) => {
+                            return <FontAwesomeIcon icon={faStar} key={i} className={highlighted > i - 1 ? 'purple':''} 
+                                onMouseEnter={highlightRate(i)} onMouseLeave={highlightRate(-1)} onClick={onRateClickedHandler(i)} 
+                            />
+                        })}
+                    </div>
                 </div>
             ) : null}
-        </div>    
+        </React.Fragment>
+         
     )
 }
 

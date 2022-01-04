@@ -11,7 +11,10 @@ function App() {
 
   const movieClickedHandler = movie => {
     setSelectedMovie(movie);
-    console.log(movie);
+  }
+
+  const updateMovie = movie => {
+    setSelectedMovie(movie);
   }
 
   useEffect(() => {
@@ -33,7 +36,7 @@ function App() {
       </header>
       <div className="layout">
         <MovieList movies={movies} movieClickedHandler={movieClickedHandler}/>
-        <MovieDetails movie={selectedMovie}/>
+        <MovieDetails movie={selectedMovie} updateMovie={updateMovie} />
       </div>
     </div>
   );
