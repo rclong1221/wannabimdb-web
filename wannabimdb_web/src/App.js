@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './App.css';
 import './components/movie-list';
@@ -66,7 +68,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Movie Rater</h1>
+        <h1>
+          <FontAwesomeIcon icon={faFilm} />
+          <span>Movie Rater</span>
+        </h1>
+
       </header>
       <div className="layout">
         <div>

@@ -15,6 +15,8 @@ function MovieForm(props) {
         setDescription(props.movie.description)
     }, [props.movie])
 
+    const isDisabled = title.length === 0 || description.length === 0;
+
     const updateClicked = () => {
         API.updateMovie(
             props.movie.id, {title, description}, token
@@ -36,7 +38,7 @@ function MovieForm(props) {
                     <input id="title" type="text" placeholder="title" value={title} onChange={(e) => setTitle(e.target.value)}></input><br/>
                     <label htmlFor="description">Description</label><br/>
                     <textarea id="description" type="text" placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea><br/>
-                    { movie.id ? <button onClick={updateClicked}>Update</button> : <button onClick={createClicked}>Create</button>}
+                    { movie.id ? <button onClick={updateClicked} disabled={isDisabled}>Update</button> : <button onClick={createClicked} disabled={isDisabled}>Create</button>}
                 </div>
             ) : null }
         </React.Fragment>
