@@ -4,15 +4,24 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Auth from './components/auth';
+import { CookiesProvider } from 'react-cookie';
+
+function Router(){
+  return (
+    <React.StrictMode>
+      <CookiesProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<Auth />} />
+            <Route exact path="/movies" element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </CookiesProvider>
+    </React.StrictMode>
+  );
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Auth />} />
-        <Route exact path="/movies" element={<App />} />
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <Router />,
   document.getElementById('root')
 );

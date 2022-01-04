@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 import './App.css';
 import './components/movie-list';
@@ -10,6 +11,12 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
+
+  const [token] = useCookies(['TokenContext']);
+
+  useEffect( () => {
+    if (!token['TokenContext']) window.location.href = '/';
+  }, [token])
 
   const movieClickedHandler = movie => {
     setSelectedMovie(movie);
@@ -49,7 +56,7 @@ function App() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Token a8102ac3e946eaeb86246edbcefb97b285139561',
+        'Authorization': `Token ${token['TokenContext']}`,
       }
     }).then( response => response.json() )
     .then( response => setMovies(response) )
